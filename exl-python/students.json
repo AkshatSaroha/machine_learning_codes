@@ -1,0 +1,30 @@
+[
+    {
+        "Name": "Mr. Amit",
+        "Age": 21,
+        "Math": 75,
+        "Science": 80,
+        "English": 85
+    },
+    {
+        "Name": "Ms. Sneha",
+        "Age": 20,
+        "Math": 90,
+        "Science": 93,
+        "English": 87
+    },
+    {
+        "Name": "Mr. Ravi",
+        "Age": 22,
+        "Math": 70,
+        "Science": 65,
+        "English": 75
+    },
+    {
+        "Name": "Ms. Meera",
+        "Age": 19,
+        "Math": 95,
+        "Science": 97,
+        "English": 100
+    }
+]

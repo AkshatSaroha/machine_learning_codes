@@ -1,0 +1,211 @@
+# Day 5
+
+
+
+# Complete Product Management API
+# Objective: Develop a Flask-based API for managing products in a shop.
+
+# Data structure
+# 	Each product has:
+# 		id: integer
+# 		name: string
+# 		price: float
+# 		quantity: integer
+
+# Requirements: Implement all endpoints:
+# 	GET /products — Get all products
+# 	GET /products/<id> — Get product by ID
+# 	POST /products — Add a new product
+# 	PUT /products/<id> — Update product by ID
+# 	DELETE /products/<id> — Delete product by ID
+	
+# Task instructions for participants
+# 1️⃣ Start the Flask app
+# bash
+# Copy
+# Edit
+# python app.py
+# 2️⃣ Test endpoints using Postman
+# Get all products
+# Method: GET
+
+# URL: http://127.0.0.1:5000/products
+
+# Body: None
+
+# Get product by ID
+# Method: GET
+
+# URL: http://127.0.0.1:5000/products/1
+
+# Body: None
+
+# Add a new product
+# Method: POST
+
+# URL: http://127.0.0.1:5000/products
+
+# Body: raw → JSON
+
+# json
+# Copy
+# Edit
+# {
+#     "id": 3,
+#     "name": "Headphones",
+#     "price": 2000.0,
+#     "quantity": 50
+# }
+# Update existing product
+# Method: PUT
+
+# URL: http://127.0.0.1:5000/products/2
+
+# Body: raw → JSON
+
+# json
+# Copy
+# Edit
+# {
+#     "name": "Mobile Pro",
+#     "price": 17000.0,
+#     "quantity": 20
+# }
+# Delete product
+# Method: DELETE
+
+# URL: http://127.0.0.1:5000/products/1
+
+# Body: None
+
+# 3️⃣ Verify each change
+# After each POST, PUT, or DELETE request, use GET /products to confirm that data was updated properly.
+
+
+
+# Flask - MySQL Task
+# ==================
+
+from flask import Flask, request, jsonify
+import mysql.connector
+from mysql.connector import Error
+
+
+app = Flask(__name__)
+
+# Create a connection to the MySQL database
+def get_db_connection():
+    return mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password='16122003',
+            database='product_task'
+        )
+
+# Get all products
+@app.route('/products', methods=['GET'])
+def get_all_products():
+    try:
+        connection = get_db_connection()
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM products")
+        products = cursor.fetchall()
+        return jsonify(products), 200
+    except Error as e:
+        return jsonify({"GET ALL Products - error": str(e)}), 500
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            
+# Get a product by ID
+@app.route('/products/<int:product_id>', methods=['GET'])
+def get_product(product_id):
+    try:
+        connection = get_db_connection()
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM products WHERE id = %s", (product_id,))
+        product = cursor.fetchone()
+        if product:
+            return jsonify(product), 200
+        else:
+            return jsonify({"error": "Product not found"}), 404
+    except Error as e:
+        return jsonify({"GET Product - error": str(e)}), 500
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            
+# Create a new product
+@app.route('/products', methods=['POST'])
+def create_product():
+    try:
+        data = request.get_json()
+        if not data or 'name' not in data or 'price' not in data or 'quantity' not in data:
+            return jsonify({"error": "Invalid input"}), 400
+        
+        connection = get_db_connection()
+        cursor = connection.cursor()
+        cursor.execute("INSERT INTO products (name, price, quantity) VALUES (%s, %s, %s)", (data['name'], data['price'], data['quantity']))
+        connection.commit()
+        
+        return jsonify({"message": "Product created successfully"}), 201
+    except Error as e:
+        return jsonify({"Create Product - error": str(e)}), 500
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            
+# Update a product by ID
+@app.route('/products/<int:product_id>', methods=['PUT'])
+def update_product(product_id):
+    try:
+        data = request.get_json()
+        if not data or 'name' not in data or 'price' not in data or 'quantity' not in data:
+            return jsonify({"error": "Invalid input"}), 400
+        
+        connection = get_db_connection()
+        cursor = connection.cursor()
+        cursor.execute("UPDATE products SET name = %s, price = %s, quantity = %s WHERE id = %s", (data['name'], data['price'], data['quantity'], product_id))
+        connection.commit()
+        
+        if cursor.rowcount == 0:
+            return jsonify({"error": "Product not found"}), 404
+        
+        return jsonify({"message": "Product updated successfully"}), 200
+    except Error as e:
+        return jsonify({"Update Product - error": str(e)}), 500
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            
+# Delete a product by ID
+@app.route('/products/<int:product_id>', methods=['DELETE'])
+def delete_product(product_id):
+    try:
+        connection = get_db_connection()
+        cursor = connection.cursor()
+        cursor.execute("DELETE FROM products WHERE id = %s", (product_id,))
+        connection.commit()
+        
+        if cursor.rowcount == 0:
+            return jsonify({"error": "Product not found"}), 404
+        
+        return jsonify({"message": "Product deleted successfully"}), 200
+    except Error as e:
+        return jsonify({"Delete Product - error": str(e)}), 500
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            
+if __name__ == '__main__':
+    app.run(debug=True)
+            
+
+            
+
+            

@@ -1,0 +1,87 @@
+Assignment Task:
+ 
+ 
+Task: Simple Product Catalog Management
+ 
+Scenario: You work for a small e-commerce company. They want a simple application to help manage product information.
+ 
+ 
+Objective: Build a small application where:
+ 
+1. You start with a CSV file containing a list of products.
+2. You read this CSV file in Python.
+3. Create a Flask web form to add new products (product name, price, and category).
+4. After adding via form, store new product data into a JSON file for record-keeping.
+ 
+---
+ 
+Data flow
+ 
+1. CSV file (products.csv): Initial data source.
+2. Python Flask app: Reads CSV, accepts new data from web form.
+3. JSON file (products.json): Stores final list after adding new products.
+ 
+---
+ 
+CSV file: products.csv (sample data)
+	product_id,product_name,category,price
+	1,Notebook,Stationery,120
+	2,Pen,Stationery,20
+	3,Mouse,Electronics,500
+	4,Keyboard,Electronics,700
+	5,Coffee Mug,Kitchen,250
+ 
+---
+ 
+Detailed steps
+ 
+Step 1: Read products from CSV
+ 
+* Use Python `csv` module to read `products.csv`.
+* Display contents in terminal to verify.
+ 
+---
+ 
+Step 2: Create Flask form to add product
+ 
+* Form fields:
+ 
+  * Product Name
+  * Category
+  * Price
+ 
+---
+ 
+Step 3: On form submission
+ 
+* Print new product details to console.
+* Append this new product data to a Python list (which already has the CSV data).
+ 
+---
+ 
+Step 4: Save final data into JSON
+ 
+* Save entire updated product list into a file named `products.json` using Python `json` module.
+ 
+---
+ 
+Expected outcomes
+ 
+* A working Flask app that reads data from CSV and allows new product entries from web form.
+* After adding, products are stored in `products.json`.
+* CSV file is only read initially; no need to write back to it.
+ 
+---
+ 
+Deliverables
+ 
+1. Python code file (app.py).
+2. HTML form file (inside templates).
+3. products.csv file with initial data.
+4. products.json file after adding data.
+ 
+---
+ 
+Final extension
+ 
+* Display all products (from CSV + new ones) on a separate page as a table.

@@ -1,0 +1,65 @@
+Multi-format Data Transformation
+
+Scenario: A college has a CSV file containing student records.
+ 
+Name,Age,Math,Science,English
+
+Mr. Amit,21,70,75,80
+
+Ms. Sneha,20,85,88,82
+
+Ravi,22,65,60,70
+
+Meera,19,90,92,95
+ 
+You need to:
+
+Read data from the CSV file in Python.
+Modify each student's data (e.g., increase marks by 5 points).
+Store the updated data in an XML file.
+Read back the XML file in Python & Prefix Salutation
+Save the final data into a JSON file.
+ 
+Step 1: Read CSV
+Use the csv module.
+Store each student as a dictionary.
+ 
+Step 2: Modify data
+Increase each mark (Math, Science, English) by 5 points, but do not exceed 100.
+ 
+Step 3: Write to XML
+Create an XML structure like:
+ 
+<Students>
+<Student>
+<Name>Amit</Name>
+<Age>21</Age>
+<Marks>
+<Math>75</Math>
+<Science>80</Science>
+<English>85</English>
+</Marks>
+</Student>
+
+    ...
+</Students>
+ 
+ 
+Step 4: Read XML
+
+Use xml.etree.ElementTree.
+Parse XML and load data into a list of dictionaries.
+ 
+===========> Add Salutation
+ 
+Step 5: Save to JSON
+Convert final list to JSON.
+Save as students.json.
+ 
+ 
+Final output files
+students.xml (updated student records in XML format)
+students.json (final JSON data)
+ 
+ 
+ 

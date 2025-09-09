@@ -1,0 +1,120 @@
+Practice Task: E-Commerce Product Catalog API
+ 
+Objective
+ 
+* Read product data from a JSON file.
+* Store data into a MySQL database.
+* Build a Flask REST API to manage products using CRUD operations.
+ 
+Scenario: You are building a product catalog service for an e-commerce platform. This service will manage products and expose APIs for other applications
+ 
+---
+ 
+Database design
+ 
+Database: `ecommercedb`
+ 
+Table: `products`
+ 
+| Column      | Type     | Description         |
+| ----------- | -------- | ------------------- |
+| id          | INT (PK) | Product ID          |
+| name        | VARCHAR  | Product name        |
+| description | TEXT     | Product description |
+| price       | FLOAT    | Product price       |
+| stock       | INT      | Available stock     |
+ 
+---
+ 
+Sample JSON file (`products.json`)
+ 
+ 
+[
+    {
+        "id": 1,
+        "name": "Wireless Mouse",
+        "description": "Ergonomic wireless mouse with USB receiver",
+        "price": 799.0,
+        "stock": 150
+    },
+    {
+        "id": 2,
+        "name": "Bluetooth Headphones",
+        "description": "Noise-cancelling over-ear headphones with mic",
+        "price": 2599.0,
+        "stock": 75
+    },
+    {
+        "id": 3,
+        "name": "Laptop Sleeve",
+        "description": "Water-resistant 15-inch laptop sleeve",
+        "price": 499.0,
+        "stock": 120
+    }
+]
+ 
+ 
+---
+ 
+Steps to perform
+ 
+Step 1: Read data from JSON file
+ 
+* Write a Python script to load products from `products.json`.
+ 
+Step 2: Create MySQL database and table
+ 
+1. Create database: ecommercedb
+ 
+2. Use database:
+ 
+3. Create products table:
+ 
+sql
+CREATE TABLE products (
+    id INT PRIMARY KEY,
+    name VARCHAR(255),
+    description TEXT,
+    price FLOAT,
+    stock INT
+);
+ 
+ 
+---
+ 
+Step 3: Insert data into MySQL
+ 
+* Write a Python script to insert data read from JSON into the `products` table.
+ 
+---
+ 
+Step 4: Build Flask REST API
+ 
+Create a Flask app with the following endpoints:
+ 
+| Endpoint         | Method | Description          |
+| ---------------- | ------ | -------------------- |
+| `/products`      | GET    | Get all products     |
+| `/products/<id>` | GET    | Get product by ID    |
+| `/products`      | POST   | Add new product      |
+| `/products/<id>` | PUT    | Update product by ID |
+| `/products/<id>` | DELETE | Delete product by ID |
+ 
+---
+ 
+Expected functionality
+ 
+* GET all products: Return all products from the database.
+* GET product by ID: Return details of a specific product.
+* POST new product: Insert a new product into the database.
+* PUT update product: Update details of an existing product.
+* DELETE product: Delete a product by ID.
+ 
+---
+ 
+Deliverables
+ 
+* Python script to read JSON and insert into MySQL.
+* Flask API code covering all endpoints.
+* SQL DDL script for table creation (`products` table).
+* Postman collection for API testing (optional but recommended).
